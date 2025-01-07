@@ -1,0 +1,30 @@
+
+.navbar {
+    padding: 10px 20px;
+    background-color: #f8f9fa; 
+    border-bottom: 1px solid #ddd; 
+  }
+  
+
+  .search-form {
+    display: flex;
+    align-items: center;
+    margin-left: auto; 
+  }
+  
+
+  .search-form .form-control {
+    width: 200px; /* Adjust width as needed */
+    margin-right: 30px; /* Space between input and button */
+  }
+  
+  .search-form .btn {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+  
+  .search-form .btn:hover {
+    background-color: #28a745; 
+    color: #fff;
+  }
+  
