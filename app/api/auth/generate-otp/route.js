@@ -15,8 +15,9 @@ export async function POST(req) {
   const data = await req.json();
   try {
     const user = await User.findOne({ email: data.email });
+
     if (!user) {
-      return NextResponse.json({ success: true, message: "If this email exists, OTP has been sent." }); 
+      return NextResponse.json({ success: true, message: "If this email exists, OTP has been sent." });
     }
 
     const otp = crypto.randomInt(100000, 999999).toString();
@@ -24,7 +25,8 @@ export async function POST(req) {
 
     user.otp = otp;
     user.otpExpiry = otpExpiry;
-    await user.save();
+
+    await user.save({ validateModifiedOnly: true });
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,

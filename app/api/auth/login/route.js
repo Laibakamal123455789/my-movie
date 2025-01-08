@@ -20,11 +20,9 @@ export async function POST(req) {
       }
 
         const token = jwt.sign({
-          id:user._id,
-          email: user.email
+          id:user._id
         },
-        JWT_SECRET, 
-        {expiresIn:"1h"}
+        JWT_SECRET
       )
       
 

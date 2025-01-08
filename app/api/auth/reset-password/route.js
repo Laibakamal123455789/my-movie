@@ -12,7 +12,8 @@ export async function POST(req) {
 
     const hashedPassword = await bcrypt.hash(data.newPassword, 10);
     user.password = hashedPassword;
-    await user.save();
+    
+    await user.save({ validateModifiedOnly: true });
 
     return NextResponse.json({ success: true, message: "Password reset successfully" });
   } catch (error) {

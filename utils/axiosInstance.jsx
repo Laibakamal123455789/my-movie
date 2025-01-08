@@ -1,14 +1,16 @@
 import axios from "axios";
+
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "/api", // Fallback to local `/api`
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "/api",
 });
 
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token"); 
-    if (config.method === "post" && token) {
+    if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
+    console.log("Request Headers:", config.headers);
     return config;
   },
   (error) => {

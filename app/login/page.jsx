@@ -7,6 +7,7 @@ import { loginHogya } from "@/store/slice/user";
 import { merastore } from "@/store/store";
 import { Provider } from "react-redux";
 import "./login.css";
+import axiosInstance from "@/utils/axiosInstance";
 
 export default function Page() {
   return (
@@ -42,19 +43,18 @@ function Login() {
     if (!validateInputs()) return;
   
     try {
-      const response = await axios.post("/api/auth/login", {
+      const response = await axiosInstance.post("/auth/login", {
         email: emailRef.current.value,
         password: passwordRef.current.value,
       });
   
       if (response.data.success) {
 
-
-        axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`; 
+        localStorage.setItem("token", response.data.token);
         dispatch(loginHogya(response.data.user));
         router.push("/");
-      }
-       else {
+
+      } else {
         setError(response.data.message);
       }
     } catch (error) {
