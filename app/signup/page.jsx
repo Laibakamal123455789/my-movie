@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Provider, useDispatch } from "react-redux";
-import { loginHogya } from "@/store/slice/user";
+import { addUser } from "@/store/slice/user";
 import "./signup.css";
 import { merastore } from "@/store/store";
 
@@ -34,7 +34,7 @@ function Signup() {
       console.log("Response from the server:", response.data);
 
       if (response.data.success) {
-        dispatch(loginHogya(response.data.user));
+        dispatch(addUser(response.data.user));
         reset();
         router.push("/");
       } else {

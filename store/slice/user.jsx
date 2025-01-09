@@ -1,15 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export let userWalaSlice = createSlice({
-    name: 'user-slice',
-    initialState: {
-      currentUser: null,
+  name: 'user-slice',
+  initialState: {
+    currentUser: null,
+    isAuthenticated: false, 
+  },
+  reducers: {
+    addUser: (state, action) => {
+      console.log("Logged in user:", action.payload);
+      state.currentUser = action.payload;
+      state.isAuthenticated = true; 
     },
-    reducers: {
-      loginHogya: (state, action) => {
-        console.log("Logged in user:", action.payload); // Debugging log
-        state.currentUser = action.payload;
-      },
+    Logout: (state, action) => {
+      localStorage.removeItem("token")
+      state.currentUser = null;
+      state.isAuthenticated = false; 
     },
-  });
-  export let { loginHogya } = userWalaSlice.actions;
+  },
+});
+
+export let { addUser, Logout } = userWalaSlice.actions;

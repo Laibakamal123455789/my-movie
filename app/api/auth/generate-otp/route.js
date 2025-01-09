@@ -19,14 +19,13 @@ export async function POST(req) {
     if (!user) {
       return NextResponse.json({ success: true, message: "If this email exists, OTP has been sent." });
     }
-
     const otp = crypto.randomInt(100000, 999999).toString();
     const otpExpiry = Date.now() + 15 * 60 * 1000;
 
     user.otp = otp;
     user.otpExpiry = otpExpiry;
 
-    await user.save({ validateModifiedOnly: true });
+    await user.save({ validateModifiedOnly: true});
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,

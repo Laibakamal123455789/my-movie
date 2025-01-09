@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { loginHogya } from "@/store/slice/user";
+import { addUser } from "@/store/slice/user";
 import { merastore } from "@/store/store";
 import { Provider } from "react-redux";
 import "./login.css";
@@ -39,7 +39,7 @@ function Login() {
     return true;
   };
 
-  const saveUser = async () => {
+  const login = async () => {
     if (!validateInputs()) return;
   
     try {
@@ -51,7 +51,7 @@ function Login() {
       if (response.data.success) {
 
         localStorage.setItem("token", response.data.token);
-        dispatch(loginHogya(response.data.user));
+        dispatch(addUser(response.data.user));
         router.push("/");
 
       } else {
@@ -79,7 +79,7 @@ function Login() {
           ref={passwordRef}
           className="input-field"
         />
-        <button className="submit-button" onClick={saveUser}>
+        <button className="submit-button" onClick={login}>
           Login
         </button>
         <p>

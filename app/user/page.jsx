@@ -16,17 +16,14 @@ export default function Page() {
 
 function Users() {
   const [users, setUsers] = useState([]);
-  const currentUser = useSelector((state) => state.user.currentUser); // Access current user from Redux
+  const currentUser = useSelector((state) => state.user.currentUser); 
   const router = useRouter();
 
   useEffect(() => {
     if (!currentUser) {
-      // Redirect to login page if no user is logged in
       router.push("/login");
       return;
     }
-
-    // Fetch users only when currentUser is available
     axios
       .get("/api/auth")
       .then((resp) => {
@@ -35,7 +32,7 @@ function Users() {
       .catch((error) => {
         console.error("Error fetching users:", error);
       });
-  }, [currentUser, router]); // Fetch users only when currentUser changes
+  }, [currentUser, router]); 
 
   return (
     <div>
@@ -58,7 +55,7 @@ function Users() {
                   onClick={async () => {
                     try {
                       if (confirm("Are you sure you want to delete this?")) {
-                        // Send delete request to the backend
+                  
                         const resp = await axios.delete(`/api/auth?anc=${user._id}`);
                         if (resp.data.success) {
                           setUsers(users.filter((cUser) => cUser._id !== user._id));
